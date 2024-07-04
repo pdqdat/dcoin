@@ -27,7 +27,7 @@ const navItems = [
 
 const Header = () => {
     return (
-        <header className="sticky top-0 border-b bg-background">
+        <header className="border-b bg-background">
             <Container className="flex h-16 w-full items-center gap-4 px-4 md:px-6">
                 <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <Link
@@ -62,6 +62,7 @@ const Header = () => {
                                 Toggle navigation menu
                             </span>
                         </Button>
+                        
                     </SheetTrigger>
                     <SheetContent side="left">
                         <nav className="grid gap-6 text-lg font-medium">
@@ -74,6 +75,8 @@ const Header = () => {
                                 <span className="sr-only">DCoin</span>
                             </Link>
 
+                            
+
                             {navItems.map((item) => (
                                 <Link
                                     key={item.title}
@@ -84,6 +87,8 @@ const Header = () => {
                                 </Link>
                             ))}
                         </nav>
+
+                        <ThemeToggler />
                     </SheetContent>
                 </Sheet>
 
@@ -94,7 +99,7 @@ const Header = () => {
 
                             <Input
                                 type="search"
-                                placeholder="Search products..."
+                                placeholder="Search Address/Block/Token"
                                 className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
                             />
                         </div>

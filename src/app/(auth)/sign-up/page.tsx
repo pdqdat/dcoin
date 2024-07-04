@@ -59,7 +59,7 @@ const SignUpPage = () => {
     };
 
     return (
-        <div className="flex h-screen items-center justify-center">
+        <div className="mt-4 flex h-screen justify-center sm:mt-0 sm:items-center">
             <div className="space-y-4">
                 <Button
                     variant="outline"

@@ -24,11 +24,61 @@ import { Loader2, ChevronLeft } from "lucide-react";
 
 const LoginPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [privateKey, setPrivateKey] = useState<string>("");
+    const [publicKey, setPublicKey] = useState<string>("");
+    const [file, setFile] = useState<File>();
 
     const router = useRouter();
     const { toast } = useToast();
 
     const toastDuration = 2500;
+
+    // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (event.target.files) {
+    //         const file = event.target.files[0];
+
+    //         if (file) {
+    //             const reader = new FileReader();
+
+    //             reader.onload = (e) => {
+    //                 if (e.target && e.target.result) {
+    //                     const content = e.target.result;
+
+    //                     try {
+    //                         const keys = JSON.parse(content as string);
+    //                         setPrivateKey(keys.privateKey);
+    //                         setPublicKey(keys.publicKey);
+    //                         console.log(privateKey, publicKey);
+
+    //                         toast({
+    //                             title: "Keys loaded successfully",
+    //                             duration: toastDuration,
+    //                         });
+    //                     } catch (error) {
+    //                         console.error("Error parsing the file", error);
+
+    //                         toast({
+    //                             title: "Error loading keys",
+    //                             description: "The file could not be parsed.",
+    //                             duration: toastDuration,
+    //                         });
+    //                     }
+    //                 } else {
+    //                     console.error(
+    //                         "FileReader did not load the file correctly.",
+    //                     );
+    //                     toast({
+    //                         title: "File Load Error",
+    //                         description: "There was an issue loading the file.",
+    //                         duration: toastDuration,
+    //                     });
+    //                 }
+    //             };
+
+    //             reader.readAsText(file);
+    //         }
+    //     }
+    // };
 
     const handleLogin = () => {
         setIsLoading(true);
@@ -57,9 +107,10 @@ const LoginPage = () => {
             setIsLoading(false);
         }, toastDuration);
     };
+    console.log(file);
 
     return (
-        <div className="flex h-screen items-center justify-center">
+        <div className="mt-4 flex h-screen justify-center sm:mt-0 sm:items-center">
             <div className="space-y-4">
                 <Button
                     variant="outline"
@@ -104,6 +155,18 @@ const LoginPage = () => {
                                 </div>
 
                                 <Input id="password" type="password" required />
+                            </div>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="email">Key pair</Label>
+                                <Input
+                                    id="key-pair"
+                                    type="file"
+                                    required
+                                    onChange={(e) =>
+                                        setFile(e.target.files?.[0])
+                                    }
+                                />
                             </div>
 
                             <Button

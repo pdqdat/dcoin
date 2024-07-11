@@ -23,3 +23,32 @@ model User {
   publicKey  String?
   privateKey String?
 }
+
+model Transaction {
+  id          String  @id @default(cuid())
+  fromAddress String?
+  toAddress   String
+  amount      Int
+  signature   String
+  status      String  @default("pending") // pending, confirmed
+
+  block Transaction_Block[]
+}
+
+model Block {
+  timestamp    DateTime @id @default(now())
+  previousHash String
+  hash         String
+  nonce        Int
+
+  transaction Transaction_Block[]
+}
+
+model Transaction_Block {
+  transaction    Transaction @relation(fields: [transactionID], references: [id])
+  transactionID  String
+  block          Block       @relation(fields: [blockTimestamp], references: [timestamp])
+  blockTimestamp DateTime
+
+  @@id([transactionID, blockTimestamp])
+}

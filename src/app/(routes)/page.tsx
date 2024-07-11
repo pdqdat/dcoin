@@ -8,14 +8,9 @@ const HomePage = () => {
         <main className="flex min-h-screen flex-col items-center p-12">
             <p className="text-2xl font-bold">DCoin</p>
 
-            <div className="flex flex-col space-y-2 pt-16 items-center">
-                <Link href="/login" className='block'>
-                    <Button>Login</Button>
-                </Link>
 
-                <Link href="/register">
-                    <Button variant="secondary">Register</Button>
-                </Link>
+            <div className="flex flex-col space-y-2 pt-16 items-center">
+                A simple blockchain implementation
             </div>
         </main>
     );

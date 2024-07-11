@@ -4,9 +4,10 @@ import "./globals.css";
 
 // Providers
 import { ThemeProvider } from "@/providers/theme-provider";
+import AuthSessionProvider from "@/providers/auth-session-provider";
 
 // Components
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -22,18 +23,20 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={font.className}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <Toaster />
+            <AuthSessionProvider>
+                <body className={font.className}>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <Toaster />
 
-                    {children}
-                </ThemeProvider>
-            </body>
+                        {children}
+                    </ThemeProvider>
+                </body>
+            </AuthSessionProvider>
         </html>
     );
 }

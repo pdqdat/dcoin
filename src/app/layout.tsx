@@ -6,7 +6,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 // Components
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner"
 
 const font = Inter({ subsets: ["latin"] });
 

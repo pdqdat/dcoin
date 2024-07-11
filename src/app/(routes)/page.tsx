@@ -1,23 +1,21 @@
-"use client";
-
 import React from "react";
-
-// Hooks
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
-    const router = useRouter();
-
     return (
         <main className="flex min-h-screen flex-col items-center p-12">
             <p className="text-2xl font-bold">DCoin</p>
 
-            <div className="flex flex-col space-y-2 pt-16">
-                <Button onClick={() => router.push("/login")}>Login</Button>
+            <div className="flex flex-col space-y-2 pt-16 items-center">
+                <Link href="/login" className='block'>
+                    <Button>Login</Button>
+                </Link>
 
-                <Button variant="secondary" onClick={() => router.push("/sign-up")}>Sign up</Button>
+                <Link href="/register">
+                    <Button variant="secondary">Register</Button>
+                </Link>
             </div>
         </main>
     );

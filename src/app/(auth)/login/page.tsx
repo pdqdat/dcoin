@@ -1,10 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-
-// Hooks
-import { useRouter } from "next/navigation";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -15,60 +10,21 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import LoginForm from "@/components/auth/login-form";
 
 // Assets
 import { Loader2, ChevronLeft } from "lucide-react";
 
 const LoginPage = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const router = useRouter();
-    const { toast } = useToast();
-
-    const toastDuration = 2500;
-
-    const handleLogin = () => {
-        setIsLoading(true);
-
-        toast({
-            duration: toastDuration,
-            title: "Logging you in...",
-            description: "Just kidding :> This feature is being developed",
-        });
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, toastDuration);
-    };
-
-    const handleLoginWithGoogle = () => {
-        setIsLoading(true);
-
-        toast({
-            duration: toastDuration,
-            title: "Logging in with Google...",
-            description: "Just kidding :> This feature is being developed",
-        });
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, toastDuration);
-    };
-
     return (
-        <div className="flex h-screen items-center justify-center">
+        <div className="mt-4 flex h-screen justify-center sm:mt-0 sm:items-center">
             <div className="space-y-4">
-                <Button
-                    variant="outline"
-                    onClick={() => router.push("/")}
-                    className="pl-2"
-                >
-                    <ChevronLeft className="mr-1 h-5 w-5" />
-                    Home
-                </Button>
+                <Link href="/">
+                    <Button variant="outline" className="pl-2">
+                        <ChevronLeft className="mr-1 h-5 w-5" />
+                        Home
+                    </Button>{" "}
+                </Link>
 
                 <Card className="mx-auto max-w-sm">
                     <CardHeader>
@@ -80,8 +36,8 @@ const LoginPage = () => {
                     </CardHeader>
 
                     <CardContent>
-                        <div className="grid gap-5">
-                            <div className="grid gap-2">
+                        {/* <div className="grid gap-5"> */}
+                            {/* <div className="grid gap-2">
                                 <Label htmlFor="email">Email</Label>
                                 <Input
                                     id="email"
@@ -106,6 +62,18 @@ const LoginPage = () => {
                                 <Input id="password" type="password" required />
                             </div>
 
+                            <div className="grid gap-2">
+                                <Label htmlFor="email">Key pair</Label>
+                                <Input
+                                    id="key-pair"
+                                    type="file"
+                                    required
+                                    onChange={(e) =>
+                                        setFile(e.target.files?.[0])
+                                    }
+                                />
+                            </div>
+
                             <Button
                                 type="submit"
                                 className="w-full"
@@ -128,25 +96,18 @@ const LoginPage = () => {
                                         Or continue with
                                     </span>
                                 </div>
-                            </div>
+                            </div> */}
+                        {/* </div> */}
 
-                            <Button
-                                variant="outline"
-                                className="w-full"
-                                disabled={isLoading}
-                                onClick={handleLoginWithGoogle}
-                            >
-                                {isLoading && (
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                )}
-                                Google
-                            </Button>
-                        </div>
+                        <LoginForm/>
 
-                        <div className="mt-4 text-center text-sm">
+                        <div className="mt-5 text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <Link href="/sign-up" className="underline">
-                                Sign up
+                            <Link
+                                href="/register"
+                                className="text-primary underline"
+                            >
+                                Register
                             </Link>
                         </div>
                     </CardContent>

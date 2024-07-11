@@ -15,17 +15,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import LogoutHandler from "@/components/auth/logout-handler";
 
 // Assets
 import { CircleUser, Menu, Bitcoin, Search } from "lucide-react";
 
+// Auth
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+
 const navItems = [
-    { title: "Home", href: "#" },
+    { title: "Home", href: "/" },
     { title: "NFTs", href: "#" },
     { title: "Resources", href: "#" },
 ];
 
-const Header = () => {
+const Header = async () => {
+    const session = await getServerSession(authOptions);
+
     return (
         <header className="border-b bg-background">
             <Container className="flex h-16 w-full items-center gap-4 px-4 md:px-6">
@@ -62,7 +69,6 @@ const Header = () => {
                                 Toggle navigation menu
                             </span>
                         </Button>
-                        
                     </SheetTrigger>
                     <SheetContent side="left">
                         <nav className="grid gap-6 text-lg font-medium">
@@ -74,8 +80,6 @@ const Header = () => {
 
                                 <span className="sr-only">DCoin</span>
                             </Link>
-
-                            
 
                             {navItems.map((item) => (
                                 <Link
@@ -107,33 +111,45 @@ const Header = () => {
 
                     <ThemeToggler />
 
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button
-                                variant="secondary"
-                                size="icon"
-                                className="rounded-full"
-                            >
-                                <CircleUser className="h-5 w-5" />
-                                <span className="sr-only">
-                                    Toggle user menu
-                                </span>
-                            </Button>
-                        </DropdownMenuTrigger>
+                    {session?.user ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="secondary"
+                                    size="icon"
+                                    className="rounded-full"
+                                >
+                                    <CircleUser className="h-5 w-5" />
+                                    <span className="sr-only">
+                                        Toggle user menu
+                                    </span>
+                                </Button>
+                            </DropdownMenuTrigger>
 
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>
+                                    {session?.user.name}{" "}
+                                    {session?.user.role === "admin"
+                                        ? " - Admin"
+                                        : ""}
+                                </DropdownMenuLabel>
 
-                            <DropdownMenuSeparator />
+                                <DropdownMenuSeparator />
 
-                            <DropdownMenuItem>Settings</DropdownMenuItem>
-                            <DropdownMenuItem>Support</DropdownMenuItem>
+                                <DropdownMenuItem>Your info</DropdownMenuItem>
 
-                            <DropdownMenuSeparator />
+                                <DropdownMenuSeparator />
 
-                            <DropdownMenuItem>Logout</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                                <DropdownMenuItem>
+                                    <LogoutHandler />
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
+                        <Link href="/login">
+                            <Button>Login</Button>
+                        </Link>
+                    )}
                 </div>
             </Container>
         </header>

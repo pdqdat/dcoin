@@ -10,10 +10,10 @@ export interface User {
 }
 
 export interface Transaction {
-    fromAddress: string | undefined;
+    fromAddress: string | null;
     toAddress: string;
     amount: number;
-    signature: string;
+    signature: string|undefined;
 }
 
 export interface Block {

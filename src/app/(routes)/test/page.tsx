@@ -13,10 +13,11 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 import { createTransaction } from "@/services/actions";
+import dCoin from "@/lib/d-coin";
 
 const TestPage = async () => {
     const session = await getServerSession(authOptions);
-    console.log(session);
+
     const ec = new EC("secp256k1");
 
     const myKeys = ec.keyFromPrivate(

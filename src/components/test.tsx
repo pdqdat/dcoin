@@ -10,7 +10,9 @@ import { Blockchain, Transaction } from "@/services/blockchain";
 
 import { Button } from "@/components/ui/button";
 
+import { getAllBlocks } from "@/services";
 import { createBlock, createTransaction } from "@/services/actions";
+import dCoin from "@/lib/d-coin";
 
 const TestComponent = () => {
     const { status, data } = useSession();
@@ -25,32 +27,22 @@ const TestComponent = () => {
 
     const myWalletAddress = myKeys.getPublic("hex");
 
-    const handleCreateTransaction = async () => {
-        let dCoin = new Blockchain();
-
+    const handleTest = async () => {
         const tx1 = new Transaction(myWalletAddress, "hapham", 10);
-        const transactionSignature = tx1.signTransaction(myKeys);
-
-        const transaction = await createTransaction(
-            myWalletAddress,
-            "hapham",
-            10,
-            transactionSignature,
-        );
-
+        tx1.signTransaction(myKeys);
         dCoin.addTransaction(tx1);
-        const assignTransactionToBlock = console.log("Start the miner");
+        console.log("\nStarting mining");
         dCoin.minePendingTransactions(myWalletAddress);
-
-        console.log("balance: ", dCoin.getBalanceOfAddress(myWalletAddress));
-
-        console.log("Is chain valid? ", dCoin.isChainValid());
+        console.log(
+            "\nBalance of miner is",
+            dCoin.getBalanceOfAddress(myWalletAddress),
+        );
     };
 
     return (
         <>
-            <Button onClick={handleCreateTransaction}>
-                create transaction
+            <Button onClick={handleTest}>
+                test
             </Button>
         </>
     );

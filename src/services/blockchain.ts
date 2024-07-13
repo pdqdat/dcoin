@@ -190,4 +190,5 @@ class Blockchain {
         return true;
     }
 }
+
 export { Blockchain, Transaction };

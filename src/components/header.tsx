@@ -26,8 +26,8 @@ import { getServerSession } from "next-auth";
 
 const navItems = [
     { title: "Home", href: "/" },
-    { title: "NFTs", href: "#" },
-    { title: "Resources", href: "#" },
+    { title: "Blocks", href: "/block" },
+    { title: "Transactions", href: "/tx" },
 ];
 
 const Header = async () => {
@@ -138,7 +138,7 @@ const Header = async () => {
 
                                 <Link href="/me">
                                     <DropdownMenuItem>
-                                        Your info
+                                        Personal info
                                     </DropdownMenuItem>
                                 </Link>
 

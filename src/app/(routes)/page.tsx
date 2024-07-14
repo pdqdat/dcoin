@@ -1,44 +1,74 @@
 import React from "react";
 import Link from "next/link";
 
+// Components
+import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
 import AllBlocks from "@/components/all-blocks";
+import {
+    Card,
+    CardHeader,
+    CardFooter,
+    CardTitle,
+    CardDescription,
+    CardContent,
+} from "@/components/ui/card";
+import BlocksTable from "@/components/block/blocks-table";
+
+// Assets
+import { MoveRight } from "lucide-react";
+
+import { getAllBlocks } from "@/services";
 
 import { Blockchain, Transaction } from "@/services/blockchain";
+import { createBlock } from "@/services/actions";
 import dCoin from "@/lib/d-coin";
 import { ec as EC } from "elliptic";
 const ec = new EC("secp256k1");
-import { createBlock } from "@/services/actions";
 
-const HomePage = () => {
-    // console.log("from home: ", dCoin);
-    // console.log(typeof dCoin.chain[0].timestamp);
-    console.log(dCoin);
+const HomePage = async () => {
+    console.log("from home: ", dCoin);
+    const blocksData = await getAllBlocks();
+    console.log("blocksData: ", blocksData.blocks);
 
     return (
-        <main className="flex min-h-screen flex-col items-center">
-            <p className="text-2xl font-bold">DCoin</p>
+        <Container>
+            <p className="text-center text-3xl font-bold">DCoin</p>
 
-            {/* {dCoin.chain.map((block, index) => (
-                <div key={index} className="my-4 border p-4">
-                    <p>Block {index}</p>
-                    <p>Hash: {block.hash}</p>
-                    <p>Previous Hash: {block.previousHash}</p>
-                    <p>Nonce: {block.nonce}</p>
-                    <p>Timestamp: {block.timestamp}</p>
-                    <p>Transactions: {block.transactions.length}</p>
-                    <ul>
-                        {block.transactions.map((tx, index) => (
-                            <li key={index}>
-                                <p>From: {tx.fromAddress}</p>
-                                <p>To: {tx.toAddress}</p>
-                                <p>Amount: {tx.amount}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))} */}
-        </main>
+            <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Latest Blocks</CardTitle>
+                    </CardHeader>
+
+                    <CardContent>
+                        <BlocksTable data={blocksData.blocks} />
+                    </CardContent>
+
+                    <CardFooter>
+                        <Link href="/block" className="mx-auto flex text-sm">
+                            View all Blocks{" "}
+                            <MoveRight className="ml-2 h-5 w-5" />
+                        </Link>
+                    </CardFooter>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Latest Transactions</CardTitle>
+                    </CardHeader>
+
+                    <CardContent>Transactions</CardContent>
+
+                    <CardFooter>
+                        <Link href="/tx" className="mx-auto flex text-sm">
+                            View all Transactions{" "}
+                            <MoveRight className="ml-2 h-5 w-5" />
+                        </Link>
+                    </CardFooter>
+                </Card>
+            </div>
+        </Container>
     );
 };
 

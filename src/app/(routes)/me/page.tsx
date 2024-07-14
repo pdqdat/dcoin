@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 
 // Components
-import UserInfo from "@/components/user-info";
 import {
     Card,
     CardHeader,
@@ -36,23 +35,25 @@ const UserInfoPage = async () => {
     }
 
     return (
-            <Container>
-        <div className="flex flex-1 flex-col gap-4 lg:gap-6">
-            <div className="flex items-center">
-                <h1 className="text-lg font-semibold md:text-2xl">
-                    {session?.user.name}
-                </h1>
-            </div>
+        <Container>
+            <div className="flex flex-1 flex-col gap-4 lg:gap-6">
+                <div className="flex items-center"></div>
 
-            <div className="space-y-2 rounded-lg border border-dashed p-4">
-                <p>Your balance: $100</p>
-            </div>
-
-            {/* <UserInfo /> */}
+                {/* <UserInfo /> */}
                 <div className="space-y-2 rounded-lg border border-dashed p-4">
-                    <p>Email: {session.user.email}</p>
+                    <div className="flex space-x-2">
+                        <h1 className="text-lg font-semibold md:text-2xl">
+                            <span>{session?.user.name}</span>
+                        </h1>
 
-                    <p>Role: {session.user.role}</p>
+                        <Slash />
+
+                        <h1 className="text-lg font-semibold md:text-2xl">
+                            <span>{session?.user.email}</span>
+                        </h1>
+                    </div>
+
+                    <p>Your balance: $100</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
@@ -97,8 +98,8 @@ const UserInfoPage = async () => {
                         </CardContent>
                     </Card>
                 </div>
-        </div>
-            </Container>
+            </div>
+        </Container>
     );
 };
 

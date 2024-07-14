@@ -47,11 +47,11 @@ class Transaction {
 }
 
 class Block {
-    timestamp: number;
-    transactions: Transaction[];
-    previousHash: string;
-    hash: string;
-    nonce: number;
+    public timestamp: number;
+    public transactions: Transaction[];
+    public previousHash: string;
+    public hash: string;
+    public nonce: number;
 
     constructor(
         timestamp: number,
@@ -99,32 +99,20 @@ class Block {
 }
 
 class Blockchain {
-    chain: Block[];
+    public chain: Block[];
     difficulty: number;
     pendingTransactions: Transaction[];
     miningReward: number;
 
-    constructor(
-        timestamp: number,
-        previousHash: string,
-        hash: string,
-        nonce: number,
-    ) {
-        this.chain = [
-            this.createGenesisBlock(timestamp, previousHash, hash, nonce),
-        ];
+    constructor() {
+        this.chain = [this.createGenesisBlock()];
         this.difficulty = 2;
         this.pendingTransactions = [];
         this.miningReward = 100;
     }
 
-    createGenesisBlock(
-        timestamp: number,
-        previousHash: string,
-        hash: string,
-        nonce: number,
-    ): Block {
-        return new Block(timestamp, [], previousHash, hash, nonce);
+    createGenesisBlock(): Block {
+        return new Block(Date.now(), [], "0");
     }
 
     updateGenesisBlock(

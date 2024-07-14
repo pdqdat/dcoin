@@ -16,7 +16,7 @@ const myKey = ec.keyFromPrivate(
 const myWalletAddress = myKey.getPublic("hex");
 
 let blocks: Block[] = [];
-let dCoin: Blockchain | null = null;
+let dCoin = new Blockchain();
 
 const fetchBlocks = async () => {
     blocks = (await getAllBlocks()) as unknown as Block[];
@@ -24,8 +24,8 @@ const fetchBlocks = async () => {
 
     // console.log("before: ", dCoin.chain[0]);
     // if (blocks.length > 0) {
-    //     dCoin = new Blockchain(
-    //         blocks[0].timestamp,
+    //     dCoin.updateGenesisBlock(
+    //         Number(blocks[0].timestamp),
     //         blocks[0].previousHash,
     //         blocks[0].hash,
     //         blocks[0].nonce,

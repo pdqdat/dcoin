@@ -8,13 +8,18 @@ import { Blockchain, Transaction } from "@/services/blockchain";
 import dCoin from "@/lib/d-coin";
 import { ec as EC } from "elliptic";
 const ec = new EC("secp256k1");
+import { createBlock } from "@/services/actions";
 
 const HomePage = () => {
+    // console.log("from home: ", dCoin);
+    // console.log(typeof dCoin.chain[0].timestamp);
+    console.log(dCoin);
+
     return (
         <main className="flex min-h-screen flex-col items-center">
             <p className="text-2xl font-bold">DCoin</p>
 
-            {dCoin.chain.map((block, index) => (
+            {/* {dCoin.chain.map((block, index) => (
                 <div key={index} className="my-4 border p-4">
                     <p>Block {index}</p>
                     <p>Hash: {block.hash}</p>
@@ -32,7 +37,7 @@ const HomePage = () => {
                         ))}
                     </ul>
                 </div>
-            ))}
+            ))} */}
         </main>
     );
 };

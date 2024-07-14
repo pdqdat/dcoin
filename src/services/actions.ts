@@ -38,30 +38,4 @@ export const createBlock = async (
     return block;
 };
 
-export const assignTransactionToBlock = async (
-    transactionID: string,
-    blockTimestamp: number,
-) => {
-    const transaction = await prisma.transaction.findUniqueOrThrow({
-        where: { id: transactionID },
-    });
-
-    const block = await prisma.block.findUniqueOrThrow({
-        where: { timestamp: new Date(blockTimestamp) },
-    });
-
-    const transactionToBlockStatus = await prisma.transaction_Block.create({
-        data: {
-            transactionID: transaction.id,
-            blockTimestamp: block.timestamp,
-        },
-    });
-
-    return transactionToBlockStatus;
-};
-
-export const clearBlockchain = async () => {
-    await prisma.transaction.deleteMany();
-    await prisma.block.deleteMany();
-    await prisma.transaction_Block.deleteMany();
-};
+export const clearBlockchain = async () => {};

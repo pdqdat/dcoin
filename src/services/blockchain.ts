@@ -57,12 +57,14 @@ class Block {
         timestamp: number,
         transactions: Transaction[],
         previousHash = "",
+        hash = "",
+        nonce = 0,
     ) {
         this.timestamp = timestamp;
         this.transactions = transactions;
         this.previousHash = previousHash;
-        this.hash = this.calculateHash();
-        this.nonce = 0;
+        this.hash = hash || this.calculateHash();
+        this.nonce = nonce || 0;
     }
 
     calculateHash(): string {
@@ -102,15 +104,40 @@ class Blockchain {
     pendingTransactions: Transaction[];
     miningReward: number;
 
-    constructor() {
-        this.chain = [this.createGenesisBlock()];
+    constructor(
+        timestamp: number,
+        previousHash: string,
+        hash: string,
+        nonce: number,
+    ) {
+        this.chain = [
+            this.createGenesisBlock(timestamp, previousHash, hash, nonce),
+        ];
         this.difficulty = 2;
         this.pendingTransactions = [];
         this.miningReward = 100;
     }
 
-    createGenesisBlock(): Block {
-        return new Block(Date.now(), [], "0");
+    createGenesisBlock(
+        timestamp: number,
+        previousHash: string,
+        hash: string,
+        nonce: number,
+    ): Block {
+        return new Block(timestamp, [], previousHash, hash, nonce);
+    }
+
+    updateGenesisBlock(
+        timestamp: number,
+        previousHash: string,
+        hash: string,
+        nonce: number,
+    ): void {
+        let genesisBlock = this.chain[0];
+        genesisBlock.timestamp = timestamp;
+        genesisBlock.previousHash = previousHash;
+        genesisBlock.hash = hash;
+        genesisBlock.nonce = nonce;
     }
 
     getLatestBlock(): Block {

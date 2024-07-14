@@ -4,7 +4,6 @@ export interface User {
     password: string;
     role: string;
     name: string;
-    // createdAt: DateTime;
     publicKey: string;
     privateKey: String;
 }

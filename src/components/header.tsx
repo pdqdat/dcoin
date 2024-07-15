@@ -28,6 +28,7 @@ const navItems = [
     { title: "Home", href: "/" },
     { title: "Blocks", href: "/block" },
     { title: "Transactions", href: "/tx" },
+    { title: "Test", href: "/test" },
 ];
 
 const Header = async () => {

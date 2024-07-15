@@ -9,12 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id         String   @id @default(cuid())
+  id         String   @id @default(cuid()) @map("_id")
   email      String   @unique
   password   String
   role       String   @default("user") // user, admin
@@ -22,4 +22,24 @@ model User {
   createdAt  DateTime @default(now())
   publicKey  String?
   privateKey String?
+}
+
+model Transaction {
+  id          String  @id @default(cuid()) @map("_id")
+  fromAddress String?
+  toAddress   String
+  amount      Int
+  signature   String
+  status      String  @default("pending") // pending, confirmed, failed
+  Block       Block?  @relation(fields: [blockId], references: [id])
+  blockId     String?
+}
+
+model Block {
+  id           String        @id @default(cuid()) @map("_id")
+  timestamp    DateTime      @default(now())
+  transactions Transaction[]
+  previousHash String
+  hash         String
+  nonce        Int
 }

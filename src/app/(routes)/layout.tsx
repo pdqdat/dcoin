@@ -8,7 +8,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <div>
             <Header />
 
-            {children}
+            <div className="mt-4">{children}</div>
         </div>
     );
 };

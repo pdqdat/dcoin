@@ -57,8 +57,6 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async jwt({ token, user }) {
-            // console.log("Message from lib/auth.ts", token, user);
-
             if (user) {
                 return {
                     ...token,

@@ -1,23 +1,73 @@
 import React from "react";
 import Link from "next/link";
 
+// Components
+import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
+import AllBlocks from "@/components/all-blocks";
+import {
+    Card,
+    CardHeader,
+    CardFooter,
+    CardTitle,
+    CardDescription,
+    CardContent,
+} from "@/components/ui/card";
+import BlocksTable from "@/components/block/blocks-table";
+import { Separator } from "@/components/ui/separator";
 
-const HomePage = () => {
+// Assets
+import { MoveRight } from "lucide-react";
+
+import { getAllBlocks } from "@/services";
+
+import { Blockchain, Transaction } from "@/services/blockchain";
+import { createBlock } from "@/services/actions";
+import dCoin from "@/lib/d-coin";
+import { ec as EC } from "elliptic";
+const ec = new EC("secp256k1");
+
+const HomePage = async () => {
+    const blocksData = await getAllBlocks();
+
     return (
-        <main className="flex min-h-screen flex-col items-center p-12">
-            <p className="text-2xl font-bold">DCoin</p>
+        <Container>
+            <p className="mb-4 text-center text-3xl font-bold">DCoin</p>
 
-            <div className="flex flex-col space-y-2 pt-16 items-center">
-                <Link href="/login" className='block'>
-                    <Button>Login</Button>
-                </Link>
+            <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Latest Blocks</CardTitle>
+                    </CardHeader>
 
-                <Link href="/register">
-                    <Button variant="secondary">Register</Button>
-                </Link>
+                    <CardContent>
+                        <BlocksTable data={blocksData.blocks} />
+                    </CardContent>
+
+                    <CardFooter>
+                        <Link href="/block" className="mx-auto flex text-sm">
+                            View all Blocks{" "}
+                            <MoveRight className="ml-2 h-5 w-5" />
+                        </Link>
+                    </CardFooter>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Latest Transactions</CardTitle>
+                    </CardHeader>
+
+                    <CardContent>Transactions</CardContent>
+
+                    <CardFooter>
+                        <Link href="/tx" className="mx-auto flex text-sm">
+                            View all Transactions{" "}
+                            <MoveRight className="ml-2 h-5 w-5" />
+                        </Link>
+                    </CardFooter>
+                </Card>
             </div>
-        </main>
+        </Container>
     );
 };
 

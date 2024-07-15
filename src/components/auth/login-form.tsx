@@ -57,7 +57,6 @@ const LoginForm = () => {
             password: values.password,
             redirect: false,
         });
-        console.log(signInData);
 
         setIsLoading(false);
 

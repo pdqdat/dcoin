@@ -26,8 +26,8 @@ import { getServerSession } from "next-auth";
 
 const navItems = [
     { title: "Home", href: "/" },
-    { title: "NFTs", href: "#" },
-    { title: "Resources", href: "#" },
+    { title: "Blocks", href: "/block" },
+    { title: "Transactions", href: "/tx" },
 ];
 
 const Header = async () => {
@@ -35,7 +35,7 @@ const Header = async () => {
 
     return (
         <header className="border-b bg-background">
-            <Container className="flex h-16 w-full items-center gap-4 px-4 md:px-6">
+            <Container className="flex h-16 w-full items-center gap-4">
                 <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <Link
                         href="#"
@@ -136,7 +136,11 @@ const Header = async () => {
 
                                 <DropdownMenuSeparator />
 
-                                <DropdownMenuItem>Your info</DropdownMenuItem>
+                                <Link href="/me">
+                                    <DropdownMenuItem>
+                                        Personal info
+                                    </DropdownMenuItem>
+                                </Link>
 
                                 <DropdownMenuSeparator />
 

@@ -17,3 +17,11 @@ export const getUserByID = async (id: string) => {
 
     return { user };
 };
+
+export const getAllBlocks = async () => {
+    const blocks = await prisma.block.findMany();
+
+    return {
+        blocks,
+    };
+}

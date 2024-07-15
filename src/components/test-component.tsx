@@ -28,11 +28,14 @@ const TestComponent = () => {
     const myWalletAddress = myKeys.getPublic("hex");
 
     const handleTest = async () => {
-        const tx1 = new Transaction(myWalletAddress, "hapham", 10);
+        const tx1 = new Transaction(myWalletAddress, "testAddress", 10);
         tx1.signTransaction(myKeys);
         dCoin.addTransaction(tx1);
+
         console.log("\nStarting mining");
+
         dCoin.minePendingTransactions(myWalletAddress);
+
         console.log(
             "\nBalance of miner is",
             dCoin.getBalanceOfAddress(myWalletAddress),
@@ -41,9 +44,7 @@ const TestComponent = () => {
 
     return (
         <>
-            <Button onClick={handleTest}>
-                test
-            </Button>
+            <Button onClick={handleTest}>test</Button>
         </>
     );
 };

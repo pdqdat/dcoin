@@ -20,7 +20,7 @@ let dCoin = new Blockchain();
 
 const fetchBlocks = async () => {
     blocks = (await getAllBlocks()) as unknown as Block[];
-    console.log("blocks: ", blocks);
+    // console.log("blocks: ", blocks);
 
     // console.log("before: ", dCoin.chain[0]);
     // if (blocks.length > 0) {

@@ -10,27 +10,20 @@ import {
     CardDescription,
     CardContent,
 } from "@/components/ui/card";
+import BlocksTable from "@/components/block/blocks-table";
 
 import dCoin from "@/lib/d-coin";
+import { getAllBlocks } from "@/services";
 
-const AllBlocksPage = () => {
+const AllBlocksPage = async () => {
+    const blocksData = await getAllBlocks();
+    console.log(blocksData.blocks);
+
     return (
         <Container>
-            {dCoin.chain.map((block, index) => (
-                <Card key={index}>
-                    <CardHeader>
-                        <CardTitle></CardTitle>
+            <p className="mb-4 text-center text-3xl font-bold">Blocks</p>
 
-                        <CardDescription>
-                            {new Date(block.timestamp).toLocaleString()}
-                        </CardDescription>
-                    </CardHeader>
-
-                    <CardContent>
-                        <p>Transactions: </p>
-                    </CardContent>
-                </Card>
-            ))}
+            <BlocksTable data={blocksData.blocks} big />
         </Container>
     );
 };

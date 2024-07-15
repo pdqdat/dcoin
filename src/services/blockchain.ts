@@ -155,7 +155,6 @@ class Blockchain {
 
     addTransaction(transaction: Transaction): void {
         if (!transaction.fromAddress || !transaction.toAddress) {
-            // if (!transaction.toAddress || !transaction.fromAddress) {
             throw new Error("Transaction must include from and to address.");
         }
 

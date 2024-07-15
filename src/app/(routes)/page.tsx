@@ -14,6 +14,7 @@ import {
     CardContent,
 } from "@/components/ui/card";
 import BlocksTable from "@/components/block/blocks-table";
+import { Separator } from "@/components/ui/separator";
 
 // Assets
 import { MoveRight } from "lucide-react";
@@ -27,13 +28,11 @@ import { ec as EC } from "elliptic";
 const ec = new EC("secp256k1");
 
 const HomePage = async () => {
-    console.log("from home: ", dCoin);
     const blocksData = await getAllBlocks();
-    console.log("blocksData: ", blocksData.blocks);
 
     return (
         <Container>
-            <p className="text-center text-3xl font-bold">DCoin</p>
+            <p className="mb-4 text-center text-3xl font-bold">DCoin</p>
 
             <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
                 <Card>
